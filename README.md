@@ -1,6 +1,24 @@
-# webpack配置
+# LS_1
 
-## 遇到一个超级大坑 （vue-loader报错）
+## 启动项目
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+## 配置webpack
+
+### 遇到一个超级大坑 （vue-loader报错）
 
 为了引入.vue文件，安装完vue-loader和vue-template-compiler后，运行报错。
 原因是vue-loader，15的版本需要再添加plugin的配置。有两种解决方法：
@@ -18,7 +36,7 @@ module.exports = {
 }
 ```
 
-## 加载less文件（less-loader使用不成功的问题）
+### 加载less文件（less-loader使用不成功的问题）
 
 要依次用style-loader,css-loader,less-loader。如下：
 
