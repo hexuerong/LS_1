@@ -26,7 +26,7 @@ npm run build --report
 1. 把安装版本改为14的 （个人试过好像没有解决，可能是其他的原因，大部分人都说解决了）。
 2. 在webpack.config.js中添加：
 
-```js
+``` js
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
     // ...
@@ -40,7 +40,7 @@ module.exports = {
 
 要依次用style-loader,css-loader,less-loader。如下：
 
-```js
+``` js
 module.exports = {
     module: {
         // ...
@@ -55,5 +55,31 @@ module.exports = {
             },
         ]
     }
+}
+```
+
+### html-webpack-plugin插件
+
+使用此插件会在dist目录下自动生成一个新的index.html文件（并替换旧的index.html），并且把所有入口起点生成的文件引入在index.html的script中。这样我们就不需要我们再手动修改index.html中的引入文件了。
+
+``` js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+    // ...
+    plugins: [
+        new HtmlWebpackPlugin()
+    ]
+}
+```
+
+### clean-webpack-plugin插件，清理 /dist 文件夹
+
+``` js
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+module.exports = {
+    // ...
+    plugins: [
+        new CleanWebpackPlugin(['dist'])
+    ]
 }
 ```
