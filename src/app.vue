@@ -12,6 +12,9 @@ export default {
 
         };
     },
+    created () {
+        console.log('app vue 创建成功');
+    },
     methods: {
 
     }

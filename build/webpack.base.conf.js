@@ -1,22 +1,37 @@
 'use strict'
-const path = require('path');
+const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+console.log(process.env.NODE_ENV);
+
 module.exports = {
-    mode: 'development',
     entry: {
         app: './src/app.js',
     },
     output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, './dist')
+        filename: process.env.NODE_ENV === 'production' ? '[name].[hash].bundle.js' : '[name].bundle.js',
+        path: path.resolve(__dirname, '../dist')
     },
-    devtool: 'cheap-module-eval-source-map',//开发环境
-    devServer: {
-        contentBase: './dist'
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname,'./src'),
+        },
+        extensions: ['.js','.vue','.json','.less','.css']
     },
+    plugins: [
+        new VueLoaderPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.html',
+            inject: true
+        }),
+        new CleanWebpackPlugin(['dist/*'], {
+            root: path.resolve(__dirname, '../'),//根目录
+            verbose: true,//开启在控制台输出信息
+        }),
+    ],
     module: {
         rules: [
             {
@@ -58,19 +73,4 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new VueLoaderPlugin(),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
-            inject: true
-        }),
-        new CleanWebpackPlugin(['dist']),
-    ],
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname,'./src'),
-        },
-        extensions: ['.js','.vue','.json','.less','.css']
-    }
 };

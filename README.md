@@ -83,3 +83,11 @@ module.exports = {
     ]
 }
 ```
+
+### 模块热替换
+
+如果你使用了 webpack-dev-middleware 而没有使用 webpack-dev-server，请使用 webpack-hot-middleware package 包。（ webpack-dev-server 中已经包括引用了模块热替换，可以不用再单独引用了）
+
+### webpack.DefinePlugin指定环境不成功，（尚未找到原因）
+
+###　webpack4.0 分离css和js文件的问题
