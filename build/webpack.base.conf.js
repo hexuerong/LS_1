@@ -11,7 +11,7 @@ module.exports = {
         app: './src/app.js',
     },
     output: {
-        filename: process.env.NODE_ENV === 'production' ? '[name].[hash].bundle.js' : '[name].bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, '../dist')
     },
     resolve: {

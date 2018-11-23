@@ -11,24 +11,42 @@ module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',
     output: {
         path: path.resolve(__dirname,'../dist'),
-        // filename: 'js/[name].[hash].bundle.js',
         filename: 'js/[name].bundle.js',
-        // chunkFilename: 'js/[id].js'//分离js
     },
     plugins: [
         new UglifyJsPlugin({
             sourceMap: true
         }),
+        new webpack.DefinePlugin({//指定环境
+            // 'process.env.NODE_ENV': '"production"'
+            DEVELEPMENT: JSON.stringify(false),
+            PRODUCTION: JSON.stringify(true),
+        }),
     ],
     optimization: {
-        /* splitChunks: {//分离js
+        splitChunks: {//失败
+            chunks: 'all',//async就失败
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
             cacheGroups: {
-                commons: {
-                    name: "commons",
-                    chunks: "initial",
-                    minChunks: 2
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    // name: 'vendors',
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
                 }
             }
-        } */
+        },
+        runtimeChunk: {
+            name: 'manifest'
+        }
     },
 });
