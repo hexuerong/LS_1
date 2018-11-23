@@ -178,6 +178,10 @@ npm install --save-dev extract-text-webpack-plugin@next
 解决方案2：
 webpack4得使用mini-css-extract-plugin这个插件来单独打包css。
 
+``` bash
+npm install --save-dev mini-css-extract-plugin
+```
+
 ``` js
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const config = module.exports={
@@ -201,3 +205,5 @@ const config = module.exports={
     }
 }
 ```
+
+注意：**在webpack-dev-server中不要分离css，会导致css无法热模块替换，无法实时刷新。**
