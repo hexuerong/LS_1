@@ -1,6 +1,7 @@
 <template>
     <div>
         嘿嘿
+        <p>菜菜菜菜菜</p>
     </div>
 </template>
 

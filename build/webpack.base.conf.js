@@ -2,7 +2,6 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 console.log(process.env.NODE_ENV);
 
@@ -27,14 +26,10 @@ module.exports = {
             template: 'index.html',
             inject: true
         }),
-        new CleanWebpackPlugin(['dist/*'], {
-            root: path.resolve(__dirname, '../'),//根目录
-            verbose: true,//开启在控制台输出信息
-        }),
     ],
     module: {
         rules: [
-            {
+            /* {
                 test: /\.css$/,
                 use: [
                     'style-loader',
@@ -48,7 +43,7 @@ module.exports = {
                     'css-loader',
                     'less-loader'
                 ]
-            },
+            }, */
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [

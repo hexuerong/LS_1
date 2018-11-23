@@ -15,6 +15,7 @@ module.exports = merge(baseWebpackConfig, {
         port: 9000,
         hot: true,
         open: false,//是否自动打开浏览器
+        clientLogLevel: 'warning',//开发工具(DevTools)的控制台(console)显示警告消息
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
@@ -24,4 +25,23 @@ module.exports = merge(baseWebpackConfig, {
             PRODUCTION: JSON.stringify(false),
         }),
     ],
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'less-loader'
+                ]
+            },
+        ]
+    }
 });

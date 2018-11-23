@@ -121,7 +121,7 @@ module.exports = {
   //...
   optimization: {
     splitChunks: {
-      chunks: 'async',//将选择哪些块进行优化。可能的值是all，async和initial。
+      chunks: 'async',//将选择哪些块进行优化。可能的值是initial(初始块)、async(按需加载块)、all(默认，全部块)。
       minSize: 30000,//要生成的块的最小大小。
       minChunks: 1,//分割前必须共享模块的最小块数。
       maxAsyncRequests: 5,//按需加载时的最大并行请求数。
@@ -165,3 +165,39 @@ runtime以及伴随的 manifest 数据，主要是指：在浏览器运行时，
 通过使用 manifest 中的数据，runtime 将能够查询模块标识符，检索出背后对应的模块。
 
 #### 分离css
+
+extract-text-webpack-plugin目前版本不支持webpack4。
+
+解决方案1：
+使用extract-text-webpack-plugin的最新的beta版
+
+``` bash
+npm install --save-dev extract-text-webpack-plugin@next
+```
+
+解决方案2：
+webpack4得使用mini-css-extract-plugin这个插件来单独打包css。
+
+``` js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const config = module.exports={
+    // ...
+ 　　plugins: [
+    　　 new MiniCssExtractPlugin({
+            filename: "[name].[chunkhash:8].css",
+            chunkFilename: "[id].css"
+    　　 })
+    ],
+  　module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader"
+                ]
+            }
+        ]
+    }
+}
+```
